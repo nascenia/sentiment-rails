@@ -9,6 +9,8 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
 
+gem 'redis'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end
@@ -17,4 +19,8 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :assets do
+  gem 'coffee-rails'
 end
