@@ -11,6 +11,9 @@ ul {
   list-style: none;
 }
 
+body{
+  padding-top:50px;
+}
 .messages-list {
   max-height: 200px;
   overflow-y: auto;
@@ -33,3 +36,4 @@ ul {
   padding: 10px;
   float: left;
 }
+

@@ -1,1 +1,1 @@
-$('#conversations-list').find("[data-conversation='" + "<%= @conversation.id %>" + "']").parent().remove();
+$('#conversations-list').find("[data-conversation='" + "<%= @conversation.id %>" + "']").parentsUntil('li').remove();

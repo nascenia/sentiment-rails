@@ -1,9 +1,9 @@
 var conversations = $('#conversations-list');
-var conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
+var conversation = conversations.find("[data-conversation='" + "<%= @conversation.id %>" + "']");
 
 if (conversation.length !== 1) {
   conversations.append("<%= j(render 'conversations/conversation', conversation: @conversation, user: current_user) %>");
-  conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
+  conversation = conversations.find("[data-conversation='" + "<%= @conversation.id %>" + "']");
 }
 
 conversation.find('.panel-body').show();
