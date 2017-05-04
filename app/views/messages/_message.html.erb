@@ -1,7 +1,8 @@
 <li>
   <div class="row">
-    <div class="message-received">
-      <strong>@<%=message.user.user_name%> </strong>: <%= message.body %>
+    <div class="message-received<%#= message.user == current_user ? 'message-sent' : 'message-received' %>">
+      <div><strong>@<%=message.user.user_name%> </strong><small> <%= distance_of_time_in_words(message.created_at, Time.now)%></small></div>
+      <%= message.body %>
     </div>
   </div>
 </li>

@@ -1,13 +1,13 @@
 <li>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <%= link_to conversation.opposed_user(user).user_name, '', class: 'toggle-window' %>
+  <div class="panel-default conversation-container">
+    <div class="panel-heading user-header">
+      <span class="text-center"><%=conversation.opposed_user(user).user_name%> </span>
       <%= link_to "x", close_conversation_path(conversation), class: "btn btn-default btn-xs pull-right", remote: true, method: :post %>
     </div>
 
-    <div class="panel-body" style="display: none;">
+    <div class="panel-body">
       <div class="messages-list">
-        <ul data-conversation="<%= conversation.id %>">
+        <ul data-conversation="<%= conversation.id %>" class="conversation-thread">
           <%= render 'conversations/conversation_content', messages: conversation.messages, user: user %>
         </ul>
         <%= text_area_tag :body, nil, {class: "form-control" , id: 'message_content'}%>

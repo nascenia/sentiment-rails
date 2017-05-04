@@ -1,13 +1,14 @@
 var conversations = $('#conversations-list');
-var conversation = conversations.find("[data-conversation='" + "<%= @conversation.id %>" + "']");
-
-if (conversation.length !== 1) {
-  conversations.append("<%= j(render 'conversations/conversation', conversation: @conversation, user: current_user) %>");
-  conversation = conversations.find("[data-conversation='" + "<%= @conversation.id %>" + "']");
-}
+conversations.html("");
+conversations.append("<%= j(render 'conversations/conversation', conversation: @conversation, user: current_user) %>");
+conversation = conversations.find("[data-conversation='" + "<%= @conversation.id %>" + "']");
 
 conversation.find('.panel-body').show();
+var messages_list = conversation.parent();
+var height = messages_list.height();
+messages_list.animate({scrollTop: messages_list[0].scrollHeight}, 2000);
 
-var messages_list = conversation.find('.messages-list');
-var height = messages_list[0].scrollHeight;
-messages_list.scrollTop(height);
+//console.log(messages_list);
+//console.log('sdf');
+console.log( height);
+//messages_list.scrollTop(height);
