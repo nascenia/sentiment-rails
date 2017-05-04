@@ -8,8 +8,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-datepicker-rails'
+
 
 gem 'redis'
+
+gem 'httparty'
 
 group :development, :test do
   gem 'byebug', platform: :mri

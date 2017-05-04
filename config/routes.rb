@@ -11,4 +11,9 @@ Rails.application.routes.draw do
 
     resources :messages, only: [:create]
   end
+  resources :admin, only: [:index] do
+    collection do
+      get :check_sentiments
+    end
+  end
 end

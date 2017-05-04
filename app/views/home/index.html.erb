@@ -19,7 +19,13 @@
 
   <div class="col-md-9">
     <ul id="conversations-list">
-      <%= render 'conversations/conversation', conversation: @conversation, user: current_user %>
+      <% if @conversation %>
+        <%= render 'conversations/conversation', conversation: @conversation, user: current_user %>
+      <% else %>
+      <ul>
+        <li> <h1> Start Conversation!</h1></li>
+      </ul>
+      <% end %>
     </ul>
   </div>
 </div>
