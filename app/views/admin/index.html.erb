@@ -1,9 +1,3 @@
-<div class="container">
-  <div class="col-md-3 col-md-offset-9">
-    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-  </div>
-</div>
-
 <div class="header-form">
   <div class="row">
     <div class="col-md-12">
@@ -22,6 +16,7 @@
           </div>
           <button type="submit" class="btn btn-default">Analyze</button>
       <% end %>
+      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
     </div>
   </div>
 </div>

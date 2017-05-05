@@ -335,8 +335,10 @@ textarea#message_content{
   background: #ebebeb;
   border-radius: 5px 5px 0 0;
 
+
   form {
     padding: 10px 30px;
+    float: left;
 
     .form-group {
       margin: 0 12px 0 6px;
@@ -348,9 +350,20 @@ textarea#message_content{
       }
     }
   }
+  a{
+    display: inline-block;
+    float: right;
+    background: #5f5c5c;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 5px;
+    vertical-align: middle;
+    min-height: 34px;
+    margin: 10px 20px;
+  }
 }
 
 .messages-list {
-  height: 88.4vh;
+  height: 84vh;
   overflow-y: scroll;
 }
