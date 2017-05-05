@@ -10,8 +10,8 @@
         <ul data-conversation="<%= conversation.id %>" class="conversation-thread">
           <%= render 'conversations/conversation_content', messages: conversation.messages, user: user %>
         </ul>
-        <%= text_area_tag :body, nil, {class: "form-control" , id: 'message_content'}%>
       </div>
+      <%= text_area_tag :body, nil, {class: "form-control" , id: 'message_content'}%>
     </div>
   </div>
 </li>

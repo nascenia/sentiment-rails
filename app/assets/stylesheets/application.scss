@@ -123,7 +123,7 @@ body{
 .message-received {
   background-color: rgba(241, 240, 240, 0.38);
   border-color: rgba(241, 240, 240, 0.38);
-  margin: 2px 20px;
+  margin: 2px 15px;
   padding: 10px;
   float: left;
   width: 100%;
@@ -184,17 +184,18 @@ body{
       }
   }
 }
-#conversations-list
-ul.conversation-thread {
-  max-height: 86vh;
+#conversations-list ul.conversation-thread {
+  //max-height: 86vh;
   overflow-y: scroll;
-  //overflow-x: hidden;
+  overflow-x: hidden;
   //margin-bottom:60px;
 
 }
 textarea#message_content{
+  position: sticky;
+  bottom: 0px;
   resize: none;
-  height: 34px;
+  height: 36px;
   border: 2px solid #bbbdbf;
   -ms-order: 1;
   -webkit-order: 1;
@@ -205,11 +206,11 @@ textarea#message_content{
   -moz-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  background-image: -webkit-linear-gradient(top,rgba(255,255,255,0),#fff 6px);
-  background-image: -moz-linear-gradient(top,rgba(255,255,255,0),#fff 6px);
-  background-image: -o-linear-gradient(top,rgba(255,255,255,0),#fff 6px);
-  background-image: linear-gradient(to bottom,rgba(255,255,255,0),#fff 6px);
+  background-image:none;
 
+}
+.form-control:focus {
+  box-shadow: none;
 }
 .user-header {
 
@@ -327,7 +328,7 @@ textarea#message_content{
   border: 1px solid #ddd;
   border-radius: 0 0 5px 5px;
 }
-.header--form {
+.header-form {
   width: 1024px;
   margin: 0 auto;
   margin-top: 20px;
@@ -347,4 +348,9 @@ textarea#message_content{
       }
     }
   }
+}
+
+.messages-list {
+  height: 88.4vh;
+  overflow-y: scroll;
 }

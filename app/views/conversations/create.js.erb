@@ -4,11 +4,5 @@ conversations.append("<%= j(render 'conversations/conversation', conversation: @
 conversation = conversations.find("[data-conversation='" + "<%= @conversation.id %>" + "']");
 
 conversation.find('.panel-body').show();
-var messages_list = conversation.parent();
-var height = messages_list.height();
-messages_list.animate({scrollTop: messages_list[0].scrollHeight}, 2000);
+conversation.animate({ scrollTop: conversation[0].scrollHeight}, "slow");
 
-//console.log(messages_list);
-//console.log('sdf');
-console.log( height);
-//messages_list.scrollTop(height);

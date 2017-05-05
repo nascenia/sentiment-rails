@@ -1,4 +1,10 @@
-<div class="header--form">
+<div class="container">
+  <div class="col-md-3 col-md-offset-9">
+    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+  </div>
+</div>
+
+<div class="header-form">
   <div class="row">
     <div class="col-md-12">
       <%= form_tag check_sentiments_admin_index_path, class: "form-inline", method: :get, remote: true do |f| %>
