@@ -5,21 +5,20 @@ class AdminController < ApplicationController
   end
 
   def check_sentiments
-    start = params[:start_date]
-    end_date = params[:end_date]
+    start = Date.strptime(params[:start_date] || Date.today, '%m/%d/%Y')
+    end_date = Date.strptime(params[:end_date] || Date.today, '%m/%d/%Y')
     user = params[:user]
     @tones = get_data(start, end_date, user)
   end
 
   def get_data(start, end_date, user)
-
+    user = User.find user
+    text = user.messages.between(start, end_date).map{|m| m.body}.join(" ")
+    return nil if text.empty?
     url = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19'
     auth = {:username => "abbb6f1f-b5f6-4f81-8c12-6bea6b7c6ffb", :password => "A7nIFyC3mcvy"}
-    # response = HTTParty.get(url, :basic_auth => auth)
-    # JSON.parse response.body
-
     result = HTTParty.post(url,
-                            :body => { :text => 'This is the screen name' }.to_json,
+                            :body => { :text => text }.to_json,
                             :basic_auth => auth,
                             :headers => { 'Content-Type' => 'application/json' } )
     JSON.parse result.body

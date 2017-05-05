@@ -9,6 +9,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
 
+  has_many :messages
 
   def conversations
     Conversation.where("sender_id = :user_id OR recipient_id = :user_id", :user_id => self.id).includes(:recipient, :messages).order("messages.created_at DESC")

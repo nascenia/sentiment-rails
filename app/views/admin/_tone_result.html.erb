@@ -1,20 +1,24 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Tone Name</th>
-      <th>Scores</th>
-      <th>Category</th>
-    </tr>
-  </thead>
-  <tbody>
-  <%tones['document_tone']['tone_categories'].each do |data| %>
-    <% data['tones'].each do |tone_data| %>
+<% if @tones.nil?%>
+    <h3> This user has no data in the selected date range.</h3>
+<% else %>
+    <table class="table table-striped">
+      <thead>
       <tr>
-        <td><%= tone_data['tone_name']%></td>
-        <td><%= tone_data['score']%></td>
-        <td><%= data['category_name']%></td>
+        <th>Tone Name</th>
+        <th>Score</th>
+        <th>Category</th>
       </tr>
-    <% end %>
-  <% end %>
+      </thead>
+      <tbody>
+        <%@tones['document_tone']['tone_categories'].each do |data| %>
+            <% data['tones'].each do |tone_data| %>
+                <tr>
+                  <td><%= tone_data['tone_name']%></td>
+                  <td><%= tone_data['score']%></td>
+                  <td><%= data['category_name']%></td>
+                </tr>
+            <% end %>
+        <% end %>
+    </table>
+<% end %>
 
-</table>
