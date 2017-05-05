@@ -14,7 +14,7 @@
             <label for="email">End:</label>
             <%= text_field_tag :end_date, Date.today.strftime("%m/%d/%Y"), class: "form-control" %>
           </div>
-          <button type="submit" class="btn btn-default">Analyze</button>
+          <button type="submit" class="btn btn-primary">Analyze</button>
       <% end %>
       <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
     </div>
