@@ -1,1 +1,32 @@
-$('#result').html("<%= escape_javascript render(:partial => 'tone_result', :locals => { :tones => @tones }) %>");
+//$('#result').html("<%#= escape_javascript render(:partial => 'tone_result', :locals => { :tones => @tones }) %>");
+function drawDonut(dataPoint) {
+  console.log("drawing", dataPoint);
+
+  Highcharts.chart('result', {
+    chart: {
+      type: 'pie',
+      options3d: {
+        enabled: true,
+        alpha: 45
+      }
+    },
+    title: {
+      text: 'Tone Analyzer'
+    },
+    subtitle: {
+      text: '<% raw @user.user_name%>'
+    },
+    plotOptions: {
+      pie: {
+        innerSize: 100,
+        depth: 45
+      }
+    },
+    series: [{
+      name: 'Tone',
+      data: dataPoint
+    }]
+  });
+}
+
+drawDonut(<%= raw @chart_data %>);
