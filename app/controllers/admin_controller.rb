@@ -26,7 +26,7 @@ class AdminController < ApplicationController
     # text = user.messages.map{|m| m.body}.join(" ")
     return nil if text.empty?
     url = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19'
-    auth = {:username => "abbb6f1f-b5f6-4f81-8c12-6bea6b7c6ffb", :password => "A7nIFyC3mcvy"}
+    auth = {:username => WATSON_USER, :password => WATSON_PASSWORD}
     result = HTTParty.post(url,
                            :body => { :text => text }.to_json,
                            :basic_auth => auth,
