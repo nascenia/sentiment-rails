@@ -14,3 +14,4 @@ $(document).on 'keydown','textarea#message_content', (event) ->
       conversationId = con.data().conversation;
       App.messages.speak({message: msg, conversation_id: conversationId});
       $(this).val(" ")
+      return false

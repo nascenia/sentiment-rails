@@ -12,11 +12,13 @@
       <tbody>
         <%@tones['document_tone']['tone_categories'].each do |data| %>
             <% data['tones'].each do |tone_data| %>
-                <tr>
-                  <td><%= tone_data['tone_name']%></td>
-                  <td><%= tone_data['score']%></td>
-                  <td><%= data['category_name']%></td>
-                </tr>
+                <% if tone_data['score'] > 0.5 %>
+                  <tr>
+                    <td><%= tone_data['tone_name']%></td>
+                    <td><%= tone_data['score']%></td>
+                    <td><%= data['category_name']%></td>
+                  </tr>
+                <% end %>
             <% end %>
         <% end %>
     </table>

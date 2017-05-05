@@ -11,26 +11,28 @@ class AdminController < ApplicationController
     @tones = get_data(start, end_date, user)
   end
 
-  def get_data(start, end_date, user)
-    user = User.find user
-    text = user.messages.between(start, end_date).map{|m| m.body}.join(" ")
-    return nil if text.empty?
-    url = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19'
-    auth = {:username => "abbb6f1f-b5f6-4f81-8c12-6bea6b7c6ffb", :password => "A7nIFyC3mcvy"}
-    result = HTTParty.post(url,
-                            :body => { :text => text }.to_json,
-                            :basic_auth => auth,
-                            :headers => { 'Content-Type' => 'application/json' } )
-    JSON.parse result.body
-
-  end
-
   protected
 
   def authenticate_admin!
     unless current_user.is_admin?
       redirect_to root_path
     end
+  end
+
+
+  def get_data(start, end_date, user)
+    user = User.find user
+    # text = user.messages.between(start, end_date).map{|m| m.body}.join(" ")
+    text = user.messages.map{|m| m.body}.join(" ")
+    return nil if text.empty?
+    url = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19'
+    auth = {:username => "abbb6f1f-b5f6-4f81-8c12-6bea6b7c6ffb", :password => "A7nIFyC3mcvy"}
+    result = HTTParty.post(url,
+                           :body => { :text => text }.to_json,
+                           :basic_auth => auth,
+                           :headers => { 'Content-Type' => 'application/json' } )
+    JSON.parse result.body
+
   end
 
 
