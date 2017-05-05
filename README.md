@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Setup guide:
 
-Things you may want to cover:
+* `git clone git@github.com:awladnas/sentiment-rails.git`
 
-* Ruby version
+* System dependencies( redis, rails 5, ruby 2.3.1)
 
-* System dependencies
+* `rake db:create && rake db:migrate`
 
-* Configuration
+* `rake db:seed`
 
-* Database creation
+* `redis-server`
 
-* Database initialization
+* `rails server`
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
