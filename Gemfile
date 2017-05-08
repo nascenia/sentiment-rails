@@ -16,7 +16,7 @@ gem 'redis'
 gem 'httparty'
 
 group :development, :test do
-  gem 'byebug', platform: :mri
+  gem 'byebug'
 end
 
 group :development do
