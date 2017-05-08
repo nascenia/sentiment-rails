@@ -14,10 +14,12 @@ set :keep_releases, 5
 set :deploy_to, "/www/apps/#{fetch(:application)}/"
 
 set :user, "deployer"
-set :use_sudo, false
-set :rvm_ruby_string, 'ruby-2.3.1'
-set :rvm_type, :system
-set :rake, 'bundle exec rake'
+# set :use_sudo, false
+set :rvm_ruby_version, '2.4.0'
+# set :rvm_path, "/usr/local/rvm"
+# set :bundle_cmd, "bundle"
+# set :rvm_type, :system
+# set :rake, 'bundle exec rake'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
