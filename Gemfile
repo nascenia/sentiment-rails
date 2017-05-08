@@ -23,6 +23,11 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-rvm', '~> 0.1.2'
+  gem "therubyracer"
+  gem "execjs"
 end
 
 group :assets do
