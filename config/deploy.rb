@@ -50,22 +50,22 @@ append :linked_files, "config/database.yml", "config/secrets.yml", "config/cable
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-# set :passenger_restart_with_touch, true
+set :passenger_restart_with_touch, true
 
-namespace :deploy do
-  task :run_servers do
-    # with_options current_path do
-    on roles(:web) do
-      within current_path do
-        with rails_env: fetch(:rails_env) do
-          execute "redis-server --daemonize yes"
-          # execute "cd #{fetch(:deploy_to)}current"
-          execute "RAILS_ENV=production passenger stop  --port 4000"
-          execute "RAILS_ENV=production passenger start  --port 4000 -d"
-        end
-      end
-    end
-    # end
-  end
-  after :finished, 'deploy:run_servers'
-end
+# namespace :deploy do
+#   task :run_servers do
+#     # with_options current_path do
+#     on roles(:web) do
+#       within current_path do
+#         with rails_env: fetch(:rails_env) do
+#           execute "redis-server --daemonize yes"
+#           # execute "cd #{fetch(:deploy_to)}current"
+#           execute "RAILS_ENV=production passenger stop  --port 4000"
+#           execute "RAILS_ENV=production passenger start  --port 4000 -d"
+#         end
+#       end
+#     end
+#     # end
+#   end
+#   after :finished, 'deploy:run_servers'
+# end
