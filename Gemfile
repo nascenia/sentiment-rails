@@ -30,6 +30,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.2'
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-passenger'
   gem "therubyracer"
   gem "execjs"
 end
