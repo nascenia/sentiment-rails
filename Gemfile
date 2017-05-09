@@ -22,7 +22,6 @@ end
 
 group :production do
   gem 'mysql2'
-  gem 'passenger', '~> 5.0', '>= 5.0.30'
 end
 group :development do
   gem 'listen', '~> 3.0.5'
