@@ -9,13 +9,14 @@ set :repo_url, "https://github.com/awladnas/sentiment-rails.git"
 # set :scm, :git
 set :deploy_via, :remote_cache
 set :branch, "master"
-set :keep_releases, 5
+set :keep_releases, 25
 
 set :deploy_to, "/www/apps/#{fetch(:application)}/"
 
 set :user, "deployer"
-# set :use_sudo, false
+set :use_sudo, true
 set :rvm_ruby_version, '2.4.0'
+
 # set :rvm_path, "/usr/local/rvm"
 # set :bundle_cmd, "bundle"
 # set :rvm_type, :system
@@ -39,7 +40,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml", "config/secrets.yml"
+append :linked_files, "config/database.yml", "config/secrets.yml", "config/cable.yml"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
@@ -49,4 +50,22 @@ append :linked_files, "config/database.yml", "config/secrets.yml"
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-set :passenger_restart_with_touch, false
+# set :passenger_restart_with_touch, true
+
+namespace :deploy do
+  task :run_servers do
+    # with_options current_path do
+    on roles(:web) do
+      within current_path do
+        with rails_env: fetch(:rails_env) do
+          execute "redis-server --daemonize yes"
+          # execute "cd #{fetch(:deploy_to)}current"
+          execute "RAILS_ENV=production passenger stop  --port 4000"
+          execute "RAILS_ENV=production passenger start  --port 4000 -d"
+        end
+      end
+    end
+    # end
+  end
+  after :finished, 'deploy:run_servers'
+end
