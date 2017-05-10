@@ -3,7 +3,8 @@ App.messages = App.cable.subscriptions.create 'MessagesChannel',
       conversation = $("[data-conversation='" + data.conversation_id + "']");
       conversation.append(data.message);
       conversation.siblings("#message_content").focus();
-      conversation.animate({ scrollTop: conversation[0].scrollHeight}, "slow");
+      if conversation.length
+        conversation.animate({ scrollTop: conversation[0].scrollHeight}, "slow");
     speak: (options) ->
       @perform 'speak', options
 
