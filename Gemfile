@@ -21,6 +21,8 @@ end
 
 group :production do
   gem 'mysql2'
+  gem 'execjs'
+  gem 'therubyracer', :platforms => :ruby
 end
 group :development do
   gem 'listen', '~> 3.0.5'
