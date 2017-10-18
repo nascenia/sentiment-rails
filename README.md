@@ -1,17 +1,20 @@
-# README
+# Sentiment Rails 
+A chat application which understands emotions & communication style using IBM Watson Tone Analyzer API
 
-Setup guide:
+## Setup guide
 
-* `git clone git@github.com:awladnas/sentiment-rails.git`
+1. System dependencies
+    - Ruby 2.3
+    - Rails 5
+    - Redis
 
-* System dependencies( redis, rails 5, ruby 2.3.1)
+2. `rake db:create && rake db:migrate`
+3. `rake db:seed`
+4. `redis-server`
+5. `rails server`
 
-* `rake db:create && rake db:migrate`
+## Setup IBM Watson
 
-* `rake db:seed`
-
-* `redis-server`
-
-* `rails server`
+Add credentials of IBM Watson account in `config/secrets.yml` based on environment.
 
 
