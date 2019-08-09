@@ -10,12 +10,10 @@ class AdminController < ApplicationController
     user = params[:user]
     tones = get_data(start, end_date, user)
     @chart_data = []
-    if tones && tones['document_tone'] && tones['document_tone']['tone_categories']
-      tones['document_tone']['tone_categories'].each do |data|
-        data['tones'].each do |tone_data|
-          if tone_data['score'] > 0.5
-            @chart_data << [tone_data['tone_name'], tone_data['score'].round(2)]
-          end
+    if tones && tones['document_tone'] && tones['document_tone']['tones']
+      tones['document_tone']['tones'].each do |tone_data|
+        if tone_data['score'] > 0.5
+          @chart_data << [tone_data['tone_name'], tone_data['score'].round(2)]
         end
       end
     end
@@ -46,8 +44,7 @@ class AdminController < ApplicationController
     result = HTTParty.post(url,
                            basic_auth: auth,
                            body: { text: text }.to_json,
-                           headers: { 'Content-Type' => 'application/json' } )
+                           headers: { 'Content-Type' => 'application/json' })
     JSON.parse result.body
-
   end
 end
