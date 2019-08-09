@@ -39,17 +39,15 @@ class AdminController < ApplicationController
     @user = user
     text = user.messages.between(start, end_date).map{|m| m.body}.join(" ")
     return nil if text.empty?
-    url = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19'
-    auth = {:username => WATSON_USER, :password => WATSON_PASSWORD}
+
+    url = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21'
+    # auth = {:username => WATSON_USER, :password => WATSON_PASSWORD}
+    auth = { username: 'apikey', password: WATSON_API_KEY }
     result = HTTParty.post(url,
-                           :body => { :text => text }.to_json,
-                           :basic_auth => auth,
-                           :headers => { 'Content-Type' => 'application/json' } )
+                           basic_auth: auth,
+                           body: { text: text }.to_json,
+                           headers: { 'Content-Type' => 'application/json' } )
     JSON.parse result.body
 
   end
-
-
 end
-
-
