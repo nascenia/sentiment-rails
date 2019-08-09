@@ -21,7 +21,7 @@ coverage
 test/*
 spec/examples.txt
 vendor/*
-/config/secrets.yml
+config/secrets.yml
 public/uploads/*
 public/assets/*
 .generators
