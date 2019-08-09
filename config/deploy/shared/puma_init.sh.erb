@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+
+PATH=/usr/local/bin:/usr/local/sbin/:/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Puma rack web server"
+NAME=puma_<%=fetch(:full_app_name)%>
+SCRIPT_NAME=/etc/init.d/${NAME}
+APP_ROOT=<%=current_path%>
+PIDFILE=<%= fetch(:puma_pid) %>
+STATE_FILE=<%= fetch(:puma_state) %>
+
+log_daemon_msg() { echo "$@"; }
+log_end_msg() { [ $1 -eq 0 ] && RES=OK; logger ${RES:=FAIL}; }
+
+run_pumactl(){
+  [ $# -lt 1 ] && echo "$# params were given, Expected 1" && exit 1
+  cd ${APP_ROOT} && <%= fetch(:rbenv_prefix) %> bundle exec pumactl -F <%=fetch(:puma_conf)%> $1
+}
+
+#
+# Function that starts the puma
+#
+start_task() {
+  if [ -e ${PIDFILE} ]; then
+    PID=`cat ${PIDFILE}`
+    # If the puma isn't running, run it, otherwise restart it.
+    if [ "`ps -A -o pid= | grep -c ${PID}`" -eq 0 ]; then
+      do_start_task
+    else
+      restart_task
+    fi
+  else
+    do_start_task
+  fi
+}
+do_start_task() {
+  log_daemon_msg "--> Woke up puma ${APP_ROOT}"
+  run_pumactl start
+}
+
+#
+# Function that stops the daemon/service
+#
+stop_task() {
+  log_daemon_msg "--> Stopping puma in path: ${APP_ROOT} ..."
+  if [ -e ${PIDFILE} ]; then
+    PID=`cat ${PIDFILE}`
+    if [ "`ps -A -o pid= | grep -c ${PID}`" -eq 0 ]; then
+      log_daemon_msg "--> Puma isn't running in path: ${APP_ROOT}."
+    else
+      log_daemon_msg "--> About to kill puma with PID: `cat $PIDFILE` ..."
+      if [ "`ps -A -o pid= | grep -c ${PID}`" -eq 0 ]; then
+        log_daemon_msg "--> Puma isn't running in path: ${APP_ROOT}."
+        return 0
+      else
+        run_pumactl stop
+        log_daemon_msg "--> Waiting for status ..."
+        sleep 5
+        if [ "`ps -A -o pid= | grep -c ${PID}`" -eq 0 ]; then
+          log_daemon_msg "--> Puma with pid ${PID} stopped successfully."
+          rm -f ${PIDFILE} ${STATE_FILE}
+        else
+          log_daemon_msg "--> Unable to stop puma with pid ${PID}."
+        fi
+      fi
+    fi
+  else
+    log_daemon_msg "--> Puma isn't running in path: ${APP_ROOT}."
+  fi
+  return 0
+}
+
+#
+# Function that sends a SIGUSR2 to the daemon/service
+#
+restart_task() {
+  if [ -e ${PIDFILE} ]; then
+    log_daemon_msg "--> About to restart puma in path: ${APP_ROOT} ..."
+    run_pumactl restart
+  else
+    log_daemon_msg "--> Your puma was never playing... Let's get it out there first ..."
+    start_task
+  fi
+  return 0
+}
+
+#
+# Function that sends a SIGUSR2 to the daemon/service
+#
+status_task() {
+  if [ -e ${PIDFILE} ]; then
+    log_daemon_msg "--> About to status puma ${APP_ROOT} ..."
+    run_pumactl status
+  else
+    log_daemon_msg "---> Puma isn't running in path: ${APP_ROOT}."
+  fi
+  return 0
+}
+
+case "$1" in
+  start)
+    [ "$VERBOSE" != no ] && log_daemon_msg "Starting ${DESC}" "${NAME} ..."
+    start_task
+    case "$?" in
+      0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+      2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
+  stop)
+    [ "$VERBOSE" != no ] && log_daemon_msg "Stopping ${DESC}" "${NAME} ..."
+    stop_task
+    case "$?" in
+      0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+      2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
+  status)
+    log_daemon_msg "Status ${DESC}" "${NAME} ..."
+    status_task
+    case "$?" in
+      0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+      2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
+  restart)
+    log_daemon_msg "Restarting ${DESC}" "${NAME} ..."
+    restart_task
+    case "$?" in
+      0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+      2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
+  *)
+    echo "Usage:" >&2
+    echo "  ${SCRIPT_NAME} {start|stop|status|restart}" >&2
+    exit 3
+    ;;
+esac
+:
